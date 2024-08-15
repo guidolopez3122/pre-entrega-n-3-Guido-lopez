@@ -1,0 +1,55 @@
+body{
+    background-color: bisque;
+}
+.titulo{
+    color: rgb(7, 7, 69);
+    display: flex;
+    justify-content: center;
+    font-family: fantasy;
+    font-size: xx-large;
+}
+.container{
+    display: flex;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 27rem;
+    width: 27rem;
+    border: black 2px solid;
+    margin: 2rem;
+    background-color: rgb(172, 178, 198);
+}
+.imagenProducto{
+    height: 12rem;
+    width: 12rem;
+}
+.nombreProducto{
+    font-size: x-large;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: black;
+}
+
+.precioProducto{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+}
+.infoProducto{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: medium;
+}
+.verCarrito{
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    margin-top: 14rem;
+    margin-right: 2rem;   
+}
+.vaciarCarrito{
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    margin-top: 14rem; 
+}
+
