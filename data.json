@@ -1,0 +1,44 @@
+[
+    {
+        "id":1,
+        "nombre":"Camiseta",
+        "precio":40,
+        "imagen":"./fotos/camisetaraptors.jpeg",
+        "descripcion":"Camiseta raptors talle L"
+    },
+    {
+        "id":2,
+        "nombre":"Campera",
+        "precio":100,
+        "imagen":"./fotos/camperathunder.jpeg",
+        "descripcion":"Campera Thunder talle M"
+    },
+    {
+        "id":3,
+        "nombre":"Chaqueta",
+        "precio":60,
+        "imagen":"./fotos/chaquetaMLB.JPG",
+        "descripcion":"Chaqueta pirates talle M"
+    },
+    {
+        "id":4,
+        "nombre":"Gorra",
+        "precio":20,
+        "imagen":"./fotos/gorrabulls.JPG",
+        "descripcion":"Gorra Bulls ajustable"
+    },
+    {
+        "id":5,
+        "nombre":"Short",
+        "precio":30,
+        "imagen":"./fotos/shortkobe.jpeg",
+        "descripcion":"short Kobe talle M"
+    },
+    {
+        "id":6,
+        "nombre":"Conjunto",
+        "precio":120,
+        "imagen":"./fotos/conjunto.JPG",
+        "descripcion":"conjunto vancouver overzise"
+    }
+]

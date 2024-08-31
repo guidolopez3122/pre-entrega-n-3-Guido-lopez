@@ -1,8 +1,8 @@
 body{
-    background-color: bisque;
+    background-color: rgb(26, 23, 18);
 }
 .titulo{
-    color: rgb(7, 7, 69);
+    color: rgb(132, 19, 6);
     display: flex;
     justify-content: center;
     font-family: fantasy;
@@ -19,7 +19,7 @@ body{
     width: 27rem;
     border: black 2px solid;
     margin: 2rem;
-    background-color: rgb(172, 178, 198);
+    background-color: rgb(97, 77, 77);
 }
 .imagenProducto{
     height: 12rem;
@@ -28,7 +28,7 @@ body{
 .nombreProducto{
     font-size: x-large;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: black;
+    color: rgb(2, 2, 2);
 }
 
 .precioProducto{
@@ -51,5 +51,30 @@ body{
     width: 5rem;
     height: 5rem;
     margin-top: 14rem; 
+}
+button{
+    background-color: black;
+    color: white;
+    font-size: large;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+button:hover {
+    background-color: white;
+    color: black;
+}
+#loader{
+    display: flex;
+    flex-direction: column;  
+    justify-content: center; 
+    align-items: center;     
+    height: 100vh;
+    width: 100vw;           
+    margin: 0;
+    background-color: black;            
+}
+.tituloCarga{
+    color: rgb(251, 251, 251);
+    font-size: xx-large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 

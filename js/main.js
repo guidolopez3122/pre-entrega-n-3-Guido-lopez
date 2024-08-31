@@ -1,122 +1,155 @@
-const productos = [
-    {
-        id:1,
-        nombre:"Camiseta",
-        precio:40,
-        imagen:"./fotos/camisetaraptors.jpeg",
-        descripcion:"Camiseta raptors talle L"
-    },
-    {
-        id:2,
-        nombre:"Campera",
-        precio:100,
-        imagen:"./fotos/camperathunder.jpeg",
-        descripcion:"Campera Thunder talle M"
-    },
-    {
-        id:3,
-        nombre:"Chaqueta",
-        precio:60,
-        imagen:"./fotos/chaquetaMLB.JPG",
-        descripcion:"Chaqueta pirates talle M"
-    },
-    {
-        id:4,
-        nombre:"Gorra",
-        precio:20,
-        imagen:"./fotos/gorrabulls.JPG",
-        descripcion:"Gorra Bulls ajustable"
-    },
-    {
-        id:5,
-        nombre:"Short",
-        precio:30,
-        imagen:"./fotos/shortkobe.jpeg",
-        descripcion:"short Kobe talle M"
-    },
-    {
-        id:6,
-        nombre:"Conjunto",
-        precio:120,
-        imagen:"./fotos/conjunto.JPG",
-        descripcion:"conjunto vancouver overzise"
-    }
-];
+const pantallaCarga = document.getElementById("loader")
+pantallaCarga.innerHTML = `<h1 class= "tituloCarga">Cargando productos...</h1>
+ <img class="imagenCarga" src="./gifs pagina/nike neon espera.gif" alt="imagen espera"> `
 
-let carrito;
+ setTimeout(() => {
+    pantallaCarga.style.display = "none";
 
-if (localStorage.getItem("carrito")){
-    carrito = JSON.parse(localStorage.getItem("carrito"));
-} else {
-    carrito = [];
-};
+fetch('./data.json')
+.then(response => response.json())
+.then(data => {
 
-const container = document.getElementById("container");
+    const titulo = document.createElement('h1');
+    titulo.className = 'titulo';
+    titulo.innerText = 'Productos';
+    document.body.insertBefore(titulo, document.getElementById('container'));
 
-function agregarAlCarrito(producto){
-    const indexProducto = carrito.findIndex(el => el.id === producto.id);
-    indexProducto !== -1 
-        ? carrito[indexProducto].cantidad += 1 
-        : carrito.push({ ...producto, cantidad: 1 });
+    let carrito;
+    
+    if (localStorage.getItem("carrito")){
+        carrito = JSON.parse(localStorage.getItem("carrito"));
+    } else {
+        carrito = [];
+    };
 
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-};
+    const container = document.getElementById("container");
 
-function crearCard(producto){
-    const card = document.createElement("div");
-    card.className = "card";
+    function agregarAlCarrito(producto){
+        const indexProducto = carrito.findIndex(el => el.id === producto.id);
+        indexProducto !== -1 
+            ? carrito[indexProducto].cantidad += 1 
+            : carrito.push({ ...producto, cantidad: 1 });
+    
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        Swal.fire({
+            title: "Item agregado!",
+            text: `agregaste ${producto.nombre} al carrito`,
+            imageUrl:"./gifs pagina/jordanvolcada.gif",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Jordan Volcada"
+          });
+    };
 
-    const titulo = document.createElement("h3");
-    titulo.innerText = producto.nombre;
-    titulo.className = "nombreProducto";
+    function crearCard(producto){
+        const card = document.createElement("div");
+        card.className = "card";
+    
+        const titulo = document.createElement("h3");
+        titulo.innerText = producto.nombre;
+        titulo.className = "nombreProducto";
+    
+        const imagen = document.createElement("img");
+        imagen.src = producto.imagen;
+        imagen.className = "imagenProducto";
+    
+        const precio = document.createElement("h4");
+        precio.innerText = `$${producto.precio}`;
+        precio.className = "precioProducto";
+    
+        const descripcion = document.createElement("p");
+        descripcion.innerText = producto.descripcion;
+        descripcion.className = "infoProducto";
+    
+        const boton =document.createElement("button");
+        boton.innerText = "Agregar al carrito";
+        boton.onclick = () => agregarAlCarrito(producto);
+    
+    
+        card.append(titulo);
+        card.append(imagen);
+        card.append(precio);
+        card.append(descripcion);
+        card.append(boton);
+    
+        container.append(card);
+    };
+    
+    data.forEach(el => crearCard(el));
 
-    const imagen = document.createElement("img");
-    imagen.src = producto.imagen;
-    imagen.className = "imagenProducto";
+    const verCarrito = document.createElement("button");
+    verCarrito.innerText = "Ver carrito";
+    verCarrito.className = "verCarrito";
+    
+    verCarrito.addEventListener("click", () => {
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    
+        if (carrito.length === 0) {
+            Swal.fire({
+                title: "Tu carrito está vacío",
+                text: "No tienes productos en tu carrito.",
+                imageUrl: "./gifs pagina/jordanwtf.gif",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "Jordan wtf"
+            });
+        } else {
+            const productosEnCarrito = carrito.map(producto => {
+                return `${producto.nombre} x${producto.cantidad} - $${producto.precio * producto.cantidad}`;
+            }).join('\n');
+    
+            const precioTotal = carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
+    
+            Swal.fire({
+                title: "Tu carrito tiene...",
+                text: `${productosEnCarrito}\n\nTotal: $${precioTotal}`,
+                imageUrl: "./gifs pagina/jordanchamp.gif",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "Jordan champ"
+            });
+        }
+    });
 
-    const precio = document.createElement("h4");
-    precio.innerText = `$${producto.precio}`;
-    precio.className = "precioProducto";
+    const vaciarCarrito = document.createElement("button");
+    vaciarCarrito.innerText = "Vaciar carrito";
+    vaciarCarrito.className = "vaciarCarrito";
+    
+    vaciarCarrito.addEventListener("click", () => {
+        Swal.fire({
+            title: "¿Estas seguro?",
+            text: "El carrito se borrara definitivamente!",
+            imageUrl:"./gifs pagina/stopit.gif",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Jordan enojado",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, quiero borrar el carrito!",
+            cancelButtonText:"No, mantener articulos"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                carrito = [];
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+              Swal.fire({
+                title: "Carrito vacio",
+                text: "Se eliminaron todos los articulos.",
+                imageUrl:"./gifs pagina/jordan enojado.gif",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "Jordan enojado"
+              });
+            }
+          });
+    });
+    
+    
+    container.append(verCarrito);
+    container.append(vaciarCarrito);
+})
 
-    const descripcion = document.createElement("p");
-    descripcion.innerText = producto.descripcion;
-    descripcion.className = "infoProducto";
-
-    const boton =document.createElement("button");
-    boton.innerText = "Agregar al carrito";
-    boton.onclick = () => agregarAlCarrito(producto);
-
-
-    card.append(titulo);
-    card.append(imagen);
-    card.append(precio);
-    card.append(descripcion);
-    card.append(boton);
-
-    container.append(card);
-};
-
-productos.forEach(el => crearCard(el));
-
-const verCarrito = document.createElement("button");
-verCarrito.innerText = "Ver carrito";
-verCarrito.className = "verCarrito";
-
-verCarrito.addEventListener("click", () => {
-    console.log("Este es tu carrito" , carrito);
-});
-
-const vaciarCarrito = document.createElement("button");
-vaciarCarrito.innerText = "Vaciar carrito";
-vaciarCarrito.className = "vaciarCarrito";
-
-vaciarCarrito.addEventListener("click", () => {
-    carrito = [];
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    alert("Vaciaste el carrito.");
-});
+},6000);
 
 
-container.append(verCarrito);
-container.append(vaciarCarrito);
 
